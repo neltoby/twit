@@ -142,7 +142,7 @@ module.exports = () => {
                         PostId: postId,
                         UserId: id
                     }})
-                    res.status(204).json(unlike)
+                    res.status(204).send(1)
                 }
             }catch(e){
                 res.status(500).json({success: false, msg: e})
