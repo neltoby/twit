@@ -22,41 +22,41 @@ const controller = require('../../controller/controllers')()
  *                                   type: boolean
  *                               msg: 
  *                                   type: string   
- *       responseTwit:
- *          200:
- *             description: An array of twits from user
- *             content: 
- *                application/json:
- *                   schema:
- *                      type: array
- *                      items:
- *                         type: object
- *                         properties:
- *                            id:
- *                               type: integer
- *                            UserId: 
- *                               type: integer
- *                            posts:
- *                               type: string
- *                            image: 
- *                               type: string
- *                            createdAt: 
- *                               type: string
- *                            Comments:
- *                               type: array
- *                            Likes:
- *                               type: array
- *                            Users: 
- *                               type: object
- *                               properties:
- *                                   name: 
- *                                      type: string
- *          404:
- *             description: The resource was not found
- *             $ref: '#/components/schemas/error' 
- *          500:
- *             description: Unexpected error
- *             $ref: '#/components/schemas/error'      
+ *           responseTwit:
+ *              200:
+ *                 description: An array of twits from user
+ *                 content: 
+ *                    application/json:
+ *                       schema:
+ *                          type: array
+ *                          items:
+ *                             type: object
+ *                             properties:
+ *                                id:
+ *                                   type: integer
+ *                                UserId: 
+ *                                   type: integer
+ *                                posts:
+ *                                   type: string
+ *                                image: 
+ *                                   type: string
+ *                                createdAt: 
+ *                                   type: string
+ *                                Comments:
+ *                                   type: array
+ *                                Likes:
+ *                                   type: array
+ *                                Users: 
+ *                                   type: object
+ *                                   properties:
+ *                                       name: 
+ *                                          type: string
+ *              404:
+ *                 description: The resource was not found
+ *                 $ref: '#/components/schemas/error' 
+ *              500:
+ *                 description: Unexpected error
+ *                 $ref: '#/components/schemas/error'      
  */
 
 /**
