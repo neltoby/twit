@@ -45,9 +45,9 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.get('/*', cors(corsOptions), getRoute)
-app.post('/*', cors(corsOptions), postRoute)
-app.delete('/*', cors(corsOptions), deleteRoute)
+app.get('/*', cors(), getRoute)
+app.post('/*', cors(), postRoute)
+app.delete('/*', cors(), deleteRoute)
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
