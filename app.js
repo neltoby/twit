@@ -14,7 +14,7 @@ const app = express()
 app.use(cors());
 
 var corsOptions = {
-  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:1234' : 'https://twittee.netlify.app/',
+  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:1234' : 'https://twittee.netlify.app',
   optionsSuccessStatus: 200
 }
 
@@ -45,9 +45,9 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.get('/*', cors(), getRoute)
-app.post('/*', cors(), postRoute)
-app.delete('/*', cors(), deleteRoute)
+app.get('/*', cors(corsOptions), getRoute)
+app.post('/*', cors(corsOptions), postRoute)
+app.delete('/*', cors(corsOptions), deleteRoute)
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
