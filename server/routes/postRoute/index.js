@@ -41,6 +41,11 @@ const genToken = require('../../controller/util').genToken
  *                               type: string  
  *                           createdAt: 
  *                               type: string
+ *                           User:
+ *                               type: object
+ *                               properties:
+ *                                   name:
+ *                                      type: string
  *           '401':
  *              description: Authorization information is missing or invalid
  *              $ref: '#/components/schemas/Error' 

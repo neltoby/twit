@@ -14,7 +14,7 @@ const app = express()
 app.use(cors());
 
 var corsOptions = {
-  origin: 'http://localhost:1234',
+  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:1234' : 'https://twittee.netlify.app/',
   optionsSuccessStatus: 200
 }
 

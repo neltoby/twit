@@ -99,7 +99,7 @@ module.exports = () => {
         },
         allTwit: async (req, res, next) => {
             try{
-                const posts = await Post.findAll({ include: [{model: Comment}, {model: Likes}, {model: Users, attributes: ['name']}]})
+                const posts = await Post.findAll({ include: [{model: Comment, include: [{model: Users, attributes: ['name']}]}, {model: Likes}, {model: Users, attributes: ['name']}]})
                 res.json(posts)
             }catch(e) {
                 res.status(500).json({success: false, msg: e})
@@ -142,7 +142,7 @@ module.exports = () => {
                         PostId: postId,
                         UserId: id
                     }})
-                    res.status(204).send(1)
+                    res.status(204).json({success: true})
                 }
             }catch(e){
                 res.status(500).json({success: false, msg: e})
@@ -156,7 +156,10 @@ module.exports = () => {
                     res.status(404).json({success: false, msg: 'Post does not exist'})
                 }else{
                     const userComment = await Comment.create({ UserId: id, PostId: postid, comment })
-                    res.json(userComment)
+                    const userDetails = await Comment.findOne({ where: {
+                        id: userComment.id
+                    }, include: [{model: Users, attributes: ['name']}]})
+                    res.json(userDetails)
                 }               
             }catch(e){
                 res.status(500).json({success: false, msg: e})
@@ -177,7 +180,7 @@ module.exports = () => {
                             const deletedPost = await Post.destroy({ where: {
                                 id: postId
                             }})
-                            res.status(204).sentDetails(deletedPost)
+                            res.status(204).json(deletedPost)
                         }else{
                             res.status(401).json({success: false, msg: 'Unauthourized request'})
                         }  

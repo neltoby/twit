@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     UserId: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         // This is a reference to another model
         model: Users,
