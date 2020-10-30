@@ -3,12 +3,12 @@ const Post = require('../../models').Post
 const Likes = require('../../models').Likes
 const Comment = require('../../models').Comment
 const bcrypt = require('bcryptjs');
-const redis = require('redis')
+// const redis = require('redis')
 const sendMail = require('../util').sendMail
 
-const REDIS_PORT = process.env.REDIS_PORT || 6379
+// const REDIS_PORT = process.env.REDIS_PORT || 6379
 
-const redisClient = redis.createClient(REDIS_PORT)
+// const redisClient = redis.createClient(REDIS_PORT)
 
 const filterUserDetails = user => {
     const sentValues = user.dataValues
