@@ -76,6 +76,27 @@ module.exports = () => {
                 res.status(500).json({success: false, msg: e})
             }
         },
+        getUser: async (req, res, next) => {
+            try{
+                const { id } = req.body
+                if(isNaN(id)){
+                    res.status(400).json({success: false, msg: 'Bad request'})
+                }else{
+                    const user = await Users.findOne({ where: {
+                        id
+                    }})
+                    if(user === null) {
+                        res.status(404).json({success: false, msg: 'User not found'})
+                    }else{
+                        const sentDetails = filterUserDetails(user)
+                        res.json(sentDetails)
+                    }
+                }
+            }catch(e) {
+                console.log(e)
+                res.status(500).json({success: false, msg: e})
+            }
+        },
         getUserById: async (req, res, next) => {
             try{
                 const { id } = req.params

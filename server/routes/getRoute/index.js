@@ -56,7 +56,58 @@ const controller = require('../../controller/controllers')()
  *                 $ref: '#/components/schemas/error' 
  *              500:
  *                 description: Unexpected error
- *                 $ref: '#/components/schemas/error'      
+ *                 $ref: '#/components/schemas/error' 
+ *           responseUser:
+ *              '200':
+ *                  description: Got the details
+ *                  content: 
+ *                      application/json:
+ *                          schema:
+ *                             type: object
+ *                             properties:
+ *                                id:
+ *                                   type: integer
+ *                                name: 
+ *                                   type: string
+ *                                email:
+ *                                   type: string
+ *                                createdAt: 
+ *                                   type: string
+ *                                username:
+ *                                   type: string
+ *              '400':
+ *                  description: Authorization information is missing or invalid
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  success:
+ *                                     type: boolean
+ *                                  msg: 
+ *                                     type: string 
+ *              '401':
+ *                  description: Authorization information is missing or invalid
+ *                  content:
+ *                     application/json:
+ *                        schema:
+ *                           type: object
+ *                           properties:
+ *                              success:
+ *                                 type: boolean
+ *                              msg: 
+ *                                 type: string
+ *              '500':
+ *                  description: Unexpected error
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                            type: object
+ *                            properties:
+ *                                success:
+ *                                   type: boolean
+ *                                msg: 
+ *                                   type: string      
  */
 
 /**
@@ -78,7 +129,7 @@ getRoute.get('/twits', authentication.authenticate, authentication.validate, con
  * @swagger
  * /twits/user/{userId}:
  *    get:
- *      description: Get all twits of users
+ *      description: Get all details of users
  *      security:
  *        - bearerAuth: []
  *      parameters:
@@ -89,57 +140,21 @@ getRoute.get('/twits', authentication.authenticate, authentication.validate, con
  *          required: true
  *          description: Numeric ID of the user to get
  *      responses:
- *        '200':
- *          description: Got the twits 
- *          content: 
- *            application/json:
- *              schema:
- *                type: object
- *                properties:
- *                   id:
- *                      type: integer
- *                   name: 
- *                      type: string
- *                   email:
- *                      type: string
- *                   createdAt: 
- *                      type: string
- *                   username:
- *                      type: string
- *        '400':
- *          description: Authorization information is missing or invalid
- *          content:
- *             application/json:
- *                schema:
- *                   type: object
- *                   properties:
- *                      success:
- *                        type: boolean
- *                      msg: 
- *                         type: string 
- *        '401':
- *          description: Authorization information is missing or invalid
- *          content:
- *             application/json:
- *                schema:
- *                   type: object
- *                   properties:
- *                      success:
- *                        type: boolean
- *                      msg: 
- *                         type: string
- *        '500':
- *          description: Unexpected error
- *          content:
- *             application/json:
- *                schema:
- *                   type: object
- *                   properties:
- *                      success:
- *                        type: boolean
- *                      msg: 
- *                         type: string 
+ *        $ref: '#/components/schemas/responseUser'
  */
 getRoute.get('/twits/user/:id', authentication.authenticate, authentication.validate, controller.getUserById)
+
+/**
+ * @swagger
+ * /twits/user:
+ *     get:
+ *         summmary: Get id of user
+ *         description: Get id of user
+ *         security:
+ *            - bearerAuth: []
+ *         responses:
+ *            $ref: '#/components/schemas/responseUser'         
+ */
+getRoute.get('/twits/user', authentication.authenticate, authentication.validate, controller.getUser)
 
 module.exports = getRoute
