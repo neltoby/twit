@@ -1,13 +1,37 @@
 const nodemailer = require("nodemailer")
+const { google } = require('googleapis');
+const { OAuth2 } = google.auth;
 
+const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
+
+const {
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REFRESH_TOKEN,
+    USER,
+  } = process.env
+
+const oauth2Client = new OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    OAUTH_PLAYGROUND
+);
 module.exports = ({email, fullname}) => {
+    oauth2Client.setCredentials({
+        refresh_token: REFRESH_TOKEN,
+    })
+
+    const accessToken = oauth2Client.getAccessToken()
     const transporter = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
+        service: "gmail",
         auth: {
-            user: "cb7c98e8c623bb",
-            pass: "898a7cb80400ef"
-        }
+            type: 'OAuth2',
+            user: USER,
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            refreshToken: REFRESH_TOKEN,
+            accessToken,
+          },
     });
     var mailOptions = {
         from: 'noreply@twitee.com',
@@ -26,45 +50,3 @@ module.exports = ({email, fullname}) => {
         }
     })
 }
-
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *   schemas:
- *     Post:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *         UserId:
- *           type: integer
- *         posts:
- *           type: string
- *         image:
- *           type: string
- *         createdAt:
- *           type: string
- *         Comments:
- *           type: array
- *         Likes:
- *           type: array
- *     Failed:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               success:
- *                 type: boolean
- *               msg: 
- *                  type: string
- *     responses:
- *       401:
- *          description: Authorization information is missing or invalid
- *          $ref: '#/component/schemas/Failed'       
- */
