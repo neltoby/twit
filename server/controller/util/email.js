@@ -34,12 +34,13 @@ module.exports = ({email, fullname}) => {
           },
     });
     var mailOptions = {
-        from: 'noreply@twitee.com',
+        from: `no-reply@twittee.com <m***@gmail.com>`,
         to: email,
         subject: 'Thank you for joining us',
         html: `<h3>Welcome onboard ${fullname}</h3>
         <p>Please we would love to always have you enjoy our platform!</p>
-        <p>Do wel to always contact should find any difficulty</p>`
+        <p>Do well to always contact should you find any difficulty</p>`,   
+        replyTo: 'no-reply@twittee.com',
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
